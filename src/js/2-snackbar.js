@@ -6,8 +6,7 @@ document.querySelector(".form").addEventListener("submit", (event) => {
 
     const form = event.currentTarget;
     const delay = Number(form.elements.delay.value);
-    const state = form.elements.state.value;
-
+    const promiseState = form.elements.state.value; // Перейменовано state → promiseState
 
     // Перевірка на некоректне значення затримки
     if (delay <= 0) {
@@ -20,7 +19,7 @@ document.querySelector(".form").addEventListener("submit", (event) => {
         return;
     }
 
-    createPromise(delay, state)
+    createPromise(delay, promiseState)
         .then((delay) => {
             iziToast.success({
                 title: "✅ OK",
@@ -41,8 +40,8 @@ document.querySelector(".form").addEventListener("submit", (event) => {
     form.reset();
 });
 
-function createPromise(delay, state) {
-    return new Promise((resolve, reject) => 
-        setTimeout(() => (state === "fulfilled" ? resolve(delay) : reject(delay)), delay)
+function createPromise(delay, promiseState) {
+    return new Promise((resolve, reject) =>
+        setTimeout(() => (promiseState === "fulfilled" ? resolve(delay) : reject(delay)), delay)
     );
 }
